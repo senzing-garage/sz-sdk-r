@@ -78,7 +78,7 @@ Since the Senzing library is a prerequisite, it must be installed first.
 
     ```console
     cd ${GIT_REPOSITORY_DIR}
-    make setup
+    make clean setup
     ```
 
 1. Run program.

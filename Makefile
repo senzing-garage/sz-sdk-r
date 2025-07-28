@@ -72,7 +72,6 @@ dependencies-for-development: dependencies-for-development-osarch-specific
 
 .PHONY: dependencies
 dependencies:  venv
-	echo "YO"
 	@sudo Rscript -e 'install.packages("bit64", repos="https://cloud.r-project.org")'
 	@sudo Rscript -e 'install.packages("dplyr", repos="https://cloud.r-project.org")'
 	@sudo Rscript -e 'install.packages("httr", repos="https://cloud.r-project.org")'
@@ -113,7 +112,7 @@ run: run-osarch-specific
 
 .PHONY: test
 test: test-osarch-specific
-	@$(activate-venv); ./test.r
+	@$(activate-venv); ./test.R
 
 # -----------------------------------------------------------------------------
 # Coverage
