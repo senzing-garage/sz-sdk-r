@@ -9,6 +9,9 @@ library(rlang)
 
 # Prepare Python environment.
 
+print(paste(">>>>>>>> 1"))
+
+
 use_virtualenv("~/.venv")
 grpc <- import("grpc")
 senzing <- import("senzing_grpc", convert = FALSE)
@@ -20,6 +23,9 @@ home_path <- "./"
 truth_set_url_prefix <- "https://raw.githubusercontent.com/Senzing/truth-sets/refs/heads/main/truthsets/demo/"
 truth_set_filenames <- list("customers.json", "reference.json", "watchlist.json")
 
+print(paste(">>>>>>>> 2"))
+
+
 # Download truth-set files.
 
 for (truth_set_filename in truth_set_filenames) {
@@ -29,6 +35,9 @@ for (truth_set_filename in truth_set_filenames) {
     text_content <- content(response, "text")
     write(text_content, filepath)
 }
+
+
+print(paste(">>>>>>>> 2"))
 
 # Discover `DATA_SOURCE` values in records.
 
@@ -40,11 +49,18 @@ for (truth_set_filename in truth_set_filenames) {
 }
 unique_data_sources <- unique(aggregate_json)
 
+
+print(paste(">>>>>>>> 4"))
+
 # Create an abstract factory for accessing Senzing.
 
 instance_name <- "Example"
 settings <- '{"PIPELINE":{"CONFIGPATH":"/etc/opt/senzing","RESOURCEPATH":"/opt/senzing/er/resources","SUPPORTPATH":"/opt/senzing/data"},"SQL":{"CONNECTION":"sqlite3://na:na@/tmp/sqlite/G2C.db"}}'
 sz_abstract_factory <- senzing$SzAbstractFactoryCore(instance_name, settings)
+
+
+print(paste(">>>>>>>> 5"))
+
 
 # Create Senzing objects.
 

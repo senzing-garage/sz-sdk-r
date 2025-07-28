@@ -1,3 +1,2 @@
 senzing-grpc
 senzing-core
-senzing==0.2.20

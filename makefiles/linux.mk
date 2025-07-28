@@ -35,14 +35,14 @@ run-osarch-specific:
 setup-osarch-specific:
 	@mkdir /tmp/sqlite
 	@cp testdata/sqlite/G2C.db /tmp/sqlite/G2C.db
-# 	@docker run \
-# 		--detach \
-# 		--env SENZING_TOOLS_ENABLE_ALL=true \
-# 		--name senzing-serve-grpc \
-# 		--publish 8261:8261 \
-# 		--rm \
-# 		senzing/serve-grpc
-# 	@sleep 10
+	@docker run \
+		--detach \
+		--env SENZING_TOOLS_ENABLE_ALL=true \
+		--name senzing-serve-grpc \
+		--publish 8261:8261 \
+		--rm \
+		senzing/serve-grpc
+	@sleep 10
 	$(info senzing/serve-grpc running in background.)
 
 .PHONY: test-osarch-specific

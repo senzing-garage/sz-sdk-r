@@ -111,8 +111,18 @@ run: run-osarch-specific
 # -----------------------------------------------------------------------------
 
 .PHONY: test
-test: test-osarch-specific
-	@$(activate-venv); ./test.R
+test: test-osarch-specific test-core test-grpc
+
+
+.PHONY: test-core
+test-core:
+# 	@$(activate-venv); ./tests/test-core.R
+	./tests/test-core.R
+
+
+.PHONY: test-grpc
+test-grpc: test-osarch-specific
+	@$(activate-venv); ./tests/test-grpc.R
 
 # -----------------------------------------------------------------------------
 # Coverage
