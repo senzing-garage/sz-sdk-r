@@ -7,7 +7,7 @@ library(jsonlite)
 library(reticulate)
 library(rlang)
 
-# Prepare Python environment for re.
+# Prepare Python environment.
 
 use_virtualenv("~/.venv")
 grpc <- import("grpc")
@@ -40,7 +40,7 @@ for (truth_set_filename in truth_set_filenames) {
 }
 unique_data_sources <- unique(aggregate_json)
 
-# Create an abstract factory for accessing Senzing via gRPC.
+# Create an abstract factory for accessing Senzing.
 
 grpc_channel <- grpc$insecure_channel("localhost:8261")
 sz_abstract_factory <- senzing$SzAbstractFactoryGrpc(grpc_channel)
@@ -63,6 +63,8 @@ for (unique_data_source in unique_data_sources) {
         sz_config$register_data_source(unique_data_source)
     }, warning = function(w) {}, error = function(e) {}, finally = {})
 }
+
+print(prettify(sz_config$get_data_source_registry(), indent = 2))
 
 # Persist new Senzing configuration.
 
@@ -88,6 +90,23 @@ for (truth_set_filename in truth_set_filenames) {
                 line,
                 senzing_flags$SzEngineFlags$SZ_WITH_INFO
             )
+            print(info)
         }
     }
 }
+
+# Retrieve an entity by identifying a record of the entity.
+
+customer_1070_entity <- sz_engine$get_entity_by_record_id("CUSTOMERS", "1070")
+print(prettify(customer_1070_entity, indent = 2))
+
+# Search for entities by attributes.
+
+search_query <- list(
+    name_full = "robert smith",
+    date_of_birth = "11/12/1978"
+)
+
+search_query_string <- toJSON(search_query, pretty = TRUE, auto_unbox = TRUE)
+search_result <- sz_engine$search_by_attributes(search_query_string)
+print(prettify(search_result, indent = 2))

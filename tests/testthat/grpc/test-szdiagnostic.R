@@ -3,12 +3,20 @@
 library(testthat)
 library(jsonlite)
 library(reticulate)
-use_virtualenv("~/.venv")
 
+# Prepare Python environment.
+
+use_virtualenv("~/.venv")
 grpc <- import("grpc")
 senzing <- import("senzing_grpc")
+
+# Create an abstract factory.
+
 grpc_channel <- grpc$insecure_channel("localhost:8261")
 sz_abstract_factory <- senzing$SzAbstractFactoryGrpc(grpc_channel)
+
+# Create Senzing objects.
+
 sz_diagnostic <- sz_abstract_factory$create_diagnostic()
 
 print_result <- function(name, ...) {

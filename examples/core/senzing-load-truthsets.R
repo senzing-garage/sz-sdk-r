@@ -7,11 +7,10 @@ library(jsonlite)
 library(reticulate)
 library(rlang)
 
-# Prepare Python environment for re.
+# Prepare Python environment.
 
 use_virtualenv("~/.venv")
-grpc <- import("grpc")
-senzing <- import("senzing_grpc", convert = FALSE)
+senzing <- import("senzing_core", convert = FALSE)
 senzing_flags <- import("senzing", convert = FALSE)
 
 # Set environment specific variables.
@@ -40,10 +39,11 @@ for (truth_set_filename in truth_set_filenames) {
 }
 unique_data_sources <- unique(aggregate_json)
 
-# Create an abstract factory for accessing Senzing via gRPC.
+# Create an abstract factory for accessing Senzing.
 
-grpc_channel <- grpc$insecure_channel("localhost:8261")
-sz_abstract_factory <- senzing$SzAbstractFactoryGrpc(grpc_channel)
+instance_name <- "Example"
+settings <- '{"PIPELINE":{"CONFIGPATH":"/etc/opt/senzing","RESOURCEPATH":"/opt/senzing/er/resources","SUPPORTPATH":"/opt/senzing/data"},"SQL":{"CONNECTION":"sqlite3://na:na@/tmp/sqlite/G2C.db"}}'
+sz_abstract_factory <- senzing$SzAbstractFactoryCore(instance_name, settings)
 
 # Create Senzing objects.
 

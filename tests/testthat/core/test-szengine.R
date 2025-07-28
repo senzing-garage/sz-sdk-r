@@ -3,14 +3,21 @@
 library(testthat)
 library(jsonlite)
 library(reticulate)
-use_virtualenv("~/.venv")
 
-grpc <- import("grpc")
-senzing <- import("senzing_grpc")
+# Prepare Python environment.
+
+use_virtualenv("~/.venv")
+senzing <- import("senzing_core")
 senzing_flags <- import("senzing", convert = FALSE)
 
-grpc_channel <- grpc$insecure_channel("localhost:8261")
-sz_abstract_factory <- senzing$SzAbstractFactoryGrpc(grpc_channel)
+# Create an abstract factory.
+
+instance_name <- "Example"
+settings <- '{"PIPELINE":{"CONFIGPATH":"/etc/opt/senzing","RESOURCEPATH":"/opt/senzing/er/resources","SUPPORTPATH":"/opt/senzing/data"},"SQL":{"CONNECTION":"sqlite3://na:na@/tmp/sqlite/G2C.db"}}'
+sz_abstract_factory <- senzing$SzAbstractFactoryCore(instance_name, settings)
+
+# Create Senzing objects.
+
 sz_engine <- sz_abstract_factory$create_engine()
 
 # Create records.
