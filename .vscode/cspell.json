@@ -5,6 +5,7 @@
   "language": "en",
   // words - list of words to be always considered correct
   "words": [
+    "alnum",
     "CCLA",
     "choosealicense",
     "CODEOWNER",
@@ -15,6 +16,10 @@
     "ICLA",
     "jsonlite",
     "knitr",
+    "oneline",
+    "osarch",
+    "osdetect",
+    "OSTYPE",
     "pkgdown",
     "Rapp",
     "Rcheck",
@@ -25,7 +30,9 @@
     "Ruserdata",
     "Senzing",
     "stackoverflow",
+    "testdata",
     "testthat",
+    "toplevel",
     "truthsets",
     "virtualenv",
     "watchlist"
