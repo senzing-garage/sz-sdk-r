@@ -56,11 +56,12 @@ print(paste(">>>>>>>> 4"))
 
 instance_name <- "Example"
 settings <- '{"PIPELINE":{"CONFIGPATH":"/etc/opt/senzing","RESOURCEPATH":"/opt/senzing/er/resources","SUPPORTPATH":"/opt/senzing/data"},"SQL":{"CONNECTION":"sqlite3://na:na@/tmp/sqlite/G2C.db"}}'
+
+print(paste(">>>>>>>> 4.1"))
+
 sz_abstract_factory <- senzing$SzAbstractFactoryCore(instance_name, settings)
 
-
 print(paste(">>>>>>>> 5"))
-
 
 # Create Senzing objects.
 
