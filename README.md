@@ -62,11 +62,11 @@ sudo Rscript -e 'install.packages("reticulate", repos="https://cloud.r-project.o
 
 ## Run example R scripts
 
-- [senzing-hello-world.R] - Prints the Senzing version
-- [senzing-load-truthsets.R] - Downloads Senzing TruthSets, registers data sources, and load records.
+- [senzing-hello-world-grpc.R] - Prints the Senzing version
+- [senzing-load-truthsets-grpc.R] - Downloads Senzing TruthSets, registers data sources, and load records.
 
 [Docker]:  https://github.com/senzing-garage/knowledge-base/blob/main/WHATIS/docker.md
 [R]: https://github.com/senzing-garage/knowledge-base/blob/main/WHATIS/r.md
 [senzing-grpc]: https://github.com/senzing-garage/sz-sdk-python-grpc
-[senzing-hello-world.R]: ./examples/senzing-hello-world.R
-[senzing-load-truthsets.R]: ./examples/senzing-load-truthsets.R
+[senzing-hello-world-grpc.R]: ./examples/senzing-hello-world-grpc.R
+[senzing-load-truthsets-grpc.R]: ./examples/senzing-load-truthsets-grpc.R

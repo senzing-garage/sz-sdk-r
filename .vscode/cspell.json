@@ -9,18 +9,26 @@
     "choosealicense",
     "CODEOWNER",
     "CODEOWNERS",
+    "configmanager",
+    "dplyr",
     "httr",
     "ICLA",
+    "jsonlite",
     "knitr",
     "pkgdown",
     "Rapp",
     "Rcheck",
     "Renviron",
+    "rlang",
     "Rproj",
     "rsconnect",
     "Ruserdata",
     "Senzing",
-    "stackoverflow"
+    "stackoverflow",
+    "testthat",
+    "truthsets",
+    "virtualenv",
+    "watchlist"
   ],
   "ignorePaths": [
     ".git/**"
