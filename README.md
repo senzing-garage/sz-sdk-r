@@ -69,7 +69,16 @@ Additional examples can be found in the testcases.
 
 - [tests/testthat]
 
+## References
+
+1. [Development]
+1. [Errors]
+1. [Examples]
+
+[Development]: docs/development.md
 [Docker]:  https://github.com/senzing-garage/knowledge-base/blob/main/WHATIS/docker.md
+[Errors]: docs/errors.md
+[Examples]: docs/examples.md
 [R]: https://github.com/senzing-garage/knowledge-base/blob/main/WHATIS/r.md
 [senzing-grpc]: https://github.com/senzing-garage/sz-sdk-python-grpc
 [senzing-hello-world-grpc.R]: ./examples/senzing-hello-world-grpc.R
