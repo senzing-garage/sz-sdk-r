@@ -10,8 +10,10 @@
     "choosealicense",
     "CODEOWNER",
     "CODEOWNERS",
+    "coleifer",
     "configmanager",
     "dplyr",
+    "DYLD",
     "httr",
     "ICLA",
     "jsonlite",
@@ -21,12 +23,14 @@
     "osdetect",
     "OSTYPE",
     "pkgdown",
+    "pycache",
     "Rapp",
     "Rcheck",
     "Renviron",
     "rlang",
     "Rproj",
     "rsconnect",
+    "Rscript",
     "Ruserdata",
     "Senzing",
     "stackoverflow",
@@ -34,10 +38,18 @@
     "testthat",
     "toplevel",
     "truthsets",
+    "venv",
     "virtualenv",
     "watchlist"
   ],
   "ignorePaths": [
-    ".git/**"
+    ".git/**",
+    ".gitignore",
+    ".history/**",
+    ".venv/**",
+    "**/__pycache__/**",
+    "development-requirements.txt",
+    "examples/*.json",
+    "tests/testthat/*.json"
   ]
 }

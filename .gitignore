@@ -48,6 +48,7 @@ rsconnect/
 
 .history
 .vscode
+.venv
 
 customers.json
 reference.json

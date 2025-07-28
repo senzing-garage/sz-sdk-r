@@ -15,6 +15,7 @@ PATH := $(MAKEFILE_DIRECTORY)/bin:/$(HOME)/go/bin:$(PATH)
 .PHONY: clean-osarch-specific
 clean-osarch-specific:
 	@rm -fr /tmp/sqlite || true
+	@docker rm --force senzing-serve-grpc 2> /dev/null || true
 
 
 .PHONY: dependencies-for-development-osarch-specific
@@ -34,10 +35,23 @@ run-osarch-specific:
 setup-osarch-specific:
 	@mkdir /tmp/sqlite
 	@cp testdata/sqlite/G2C.db /tmp/sqlite/G2C.db
-
+	@docker run \
+		--detach \
+		--env SENZING_TOOLS_ENABLE_ALL=true \
+		--name senzing-serve-grpc \
+		--publish 8261:8261 \
+		--rm \
+		senzing/serve-grpc
+	@sleep 10
+	$(info senzing/serve-grpc running in background.)
 
 .PHONY: test-osarch-specific
 test-osarch-specific:
+
+
+.PHONY: venv-osarch-specific
+venv-osarch-specific:
+	@python3 -m venv .venv
 
 # -----------------------------------------------------------------------------
 # Makefile targets supported only by this platform.

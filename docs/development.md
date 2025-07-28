@@ -74,14 +74,24 @@ Since the Senzing library is a prerequisite, it must be installed first.
 
 ## Run
 
+1. Start Senzing gRPC server
+
+    ```console
+    cd ${GIT_REPOSITORY_DIR}
+    make setup
+    ```
+
 1. Run program.
    Examples:
 
     1. Linux
 
         ```console
-        ${GIT_REPOSITORY_DIR}/target/linux-amd64/sz-sdk-go-core
+        ${GIT_REPOSITORY_DIR}/examples/senzing-hello-world-grpc.R
+        ```
 
+        ```console
+        ${GIT_REPOSITORY_DIR}/examples/senzing-load-truthsets-grpc.R
         ```
 
 1. Clean up.
@@ -90,7 +100,6 @@ Since the Senzing library is a prerequisite, it must be installed first.
     ```console
     cd ${GIT_REPOSITORY_DIR}
     make clean
-
     ```
 
 ## Test

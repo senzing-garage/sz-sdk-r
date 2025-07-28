@@ -59,16 +59,24 @@ hello-world: hello-world-osarch-specific
 # Dependency management
 # -----------------------------------------------------------------------------
 
+.PHONY: venv
+venv: venv-osarch-specific
+
+
 .PHONY: dependencies-for-development
 dependencies-for-development: dependencies-for-development-osarch-specific
+	$(activate-venv); \
+		python3 -m pip install --upgrade pip; \
+		python3 -m pip install --requirement development-requirements.txt
 
 
 .PHONY: dependencies
-dependencies:
-    @sudo Rscript -e 'install.packages("bit64", repos="https://cloud.r-project.org")'
-    @sudo Rscript -e 'install.packages("dplyr", repos="https://cloud.r-project.org")'
-    @sudo Rscript -e 'install.packages("httr", repos="https://cloud.r-project.org")'
-    @sudo Rscript -e 'install.packages("reticulate", repos="https://cloud.r-project.org")'
+dependencies:  venv
+	echo "YO"
+	@sudo Rscript -e 'install.packages("bit64", repos="https://cloud.r-project.org")'
+	@sudo Rscript -e 'install.packages("dplyr", repos="https://cloud.r-project.org")'
+	@sudo Rscript -e 'install.packages("httr", repos="https://cloud.r-project.org")'
+	@sudo Rscript -e 'install.packages("reticulate", repos="https://cloud.r-project.org")'
 	$(activate-venv); \
 		python3 -m pip install --upgrade pip; \
 		python3 -m pip install --requirement requirements.txt
