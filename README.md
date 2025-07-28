@@ -81,6 +81,6 @@ Additional examples can be found in the testcases.
 [Examples]: docs/examples.md
 [R]: https://github.com/senzing-garage/knowledge-base/blob/main/WHATIS/r.md
 [senzing-grpc]: https://github.com/senzing-garage/sz-sdk-python-grpc
-[senzing-hello-world-grpc.R]: ./examples/senzing-hello-world-grpc.R
-[senzing-load-truthsets-grpc.R]: ./examples/senzing-load-truthsets-grpc.R
+[senzing-hello-world-grpc.R]: ./examples/grpc/senzing-hello-world-grpc.R
+[senzing-load-truthsets-grpc.R]: ./examples/grpc/senzing-load-truthsets-grpc.R
 [tests/testthat]: ./tests/testthat
