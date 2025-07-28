@@ -48,4 +48,10 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 
+
 .history
+.vscode
+
+customers.json
+reference.json
+watchlist.json
