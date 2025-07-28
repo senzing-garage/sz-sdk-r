@@ -5,14 +5,23 @@
   "language": "en",
   // words - list of words to be always considered correct
   "words": [
-      "CCLA",
-      "choosealicense",
-      "CODEOWNER",
-      "CODEOWNERS",
-      "ICLA",
-      "Senzing",
-      "stackoverflow"
-    ],
+    "CCLA",
+    "choosealicense",
+    "CODEOWNER",
+    "CODEOWNERS",
+    "httr",
+    "ICLA",
+    "knitr",
+    "pkgdown",
+    "Rapp",
+    "Rcheck",
+    "Renviron",
+    "Rproj",
+    "rsconnect",
+    "Ruserdata",
+    "Senzing",
+    "stackoverflow"
+  ],
   "ignorePaths": [
     ".git/**"
   ]
