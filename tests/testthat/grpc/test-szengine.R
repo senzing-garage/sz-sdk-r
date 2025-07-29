@@ -104,8 +104,8 @@ test_that("sz_engine.find_network_by_entity_id", {
 
 test_that("sz_engine.find_network_by_record_id", {
     record_list <- list(
-        c("CUSTOMERS", "1001"),
-        c("CUSTOMERS", "1002")
+        tuple("CUSTOMERS", "1001"),
+        tuple("CUSTOMERS", "1002")
     )
     max_degrees <- 2L
     build_out_degrees <- 1L
@@ -119,7 +119,7 @@ test_that("sz_engine.find_path_by_entity_id", {
     start_entity_id <- get_entity_id_from_record_id("CUSTOMERS", "1001")
     end_entity_id <- get_entity_id_from_record_id("CUSTOMERS", "1002")
     max_degrees <- 1L
-    avoid_entity_ids <- list(0)
+    avoid_entity_ids <- list(0L)
     required_data_sources <- list("CUSTOMERS")
     flags <- senzing_flags$SzEngineFlags$SZ_FIND_PATH_DEFAULT_FLAGS
     result <- sz_engine$find_path_by_entity_id(
@@ -140,7 +140,7 @@ test_that("sz_engine.find_path_by_record_id", {
     end_record_id <- "1002"
     max_degrees <- 1L
     avoid_record_keys <- list(
-        list("CUSTOMERS", "0000")
+        tuple("CUSTOMERS", "0000")
     )
     required_data_sources <- list("CUSTOMERS")
     flags <- senzing_flags$SzEngineFlags$SZ_FIND_PATH_DEFAULT_FLAGS
@@ -212,8 +212,8 @@ test_that("sz_engine.get_stats", {
 
 test_that("sz_engine.get_virtual_entity_by_record_id", {
     record_list <- list(
-        c("CUSTOMERS", "1001"),
-        c("CUSTOMERS", "1002")
+        tuple("CUSTOMERS", "1001"),
+        tuple("CUSTOMERS", "1002")
     )
     flags <- senzing_flags$SzEngineFlags$SZ_VIRTUAL_ENTITY_DEFAULT_FLAGS
     result <- sz_engine$get_virtual_entity_by_record_id(record_list, flags)
