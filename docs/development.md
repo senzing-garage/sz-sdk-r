@@ -117,18 +117,9 @@ Since the Senzing library is a prerequisite, it must be installed first.
 1. Run tests.
    Example:
 
-    1. gRPC
-
     ```console
     cd ${GIT_REPOSITORY_DIR}
-    make clean setup test-grpc
-    ```
-
-    1. core
-
-    ```console
-    cd ${GIT_REPOSITORY_DIR}
-    make clean setup test-core
+    make clean setup test
     ```
 
 ## Debugging
