@@ -51,8 +51,10 @@
     ".history/**",
     ".venv/**",
     "**/__pycache__/**",
+    "customers.json",
     "development-requirements.txt",
     "examples/*.json",
-    "tests/testthat/*.json"
+    "reference.json",
+    "watchlist.json"
   ]
 }

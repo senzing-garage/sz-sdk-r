@@ -87,11 +87,11 @@ Since the Senzing library is a prerequisite, it must be installed first.
     1. Linux
 
         ```console
-        ${GIT_REPOSITORY_DIR}/examples/senzing-hello-world-grpc.R
+        ${GIT_REPOSITORY_DIR}/examples/grpc/senzing-hello-world.R
         ```
 
         ```console
-        ${GIT_REPOSITORY_DIR}/examples/senzing-load-truthsets-grpc.R
+        ${GIT_REPOSITORY_DIR}/examples/grpc/senzing-load-truthsets.R
         ```
 
 1. Clean up.
