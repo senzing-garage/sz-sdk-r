@@ -111,12 +111,11 @@ run: run-osarch-specific
 # -----------------------------------------------------------------------------
 
 .PHONY: test
-test: test-osarch-specific test-core
+test: test-osarch-specific test-core test-grpc
 
 
 .PHONY: test-core
 test-core:
-# 	@$(activate-venv); ./tests/test-core.R
 	./tests/test-core.R
 
 
