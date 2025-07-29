@@ -7,7 +7,7 @@ library(reticulate)
 # Prepare Python environment.
 
 use_virtualenv("~/.venv")
-senzing <- import("senzing_core")
+senzing <- import("senzing_core", convert = FALSE)
 senzing_flags <- import("senzing", convert = FALSE)
 
 # Create an abstract factory.

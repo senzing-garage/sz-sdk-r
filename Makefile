@@ -111,7 +111,7 @@ run: run-osarch-specific
 # -----------------------------------------------------------------------------
 
 .PHONY: test
-test: test-osarch-specific test-core test-grpc
+test: test-osarch-specific test-core
 
 
 .PHONY: test-core

@@ -84,27 +84,25 @@ Since the Senzing library is a prerequisite, it must be installed first.
 1. Run program.
    Examples:
 
-    1. Linux
+    1. gRPC
 
-        1. gRPC
+        ```console
+        ${GIT_REPOSITORY_DIR}/examples/grpc/senzing-hello-world.R
+        ```
 
-            ```console
-            ${GIT_REPOSITORY_DIR}/examples/grpc/senzing-hello-world.R
-            ```
+        ```console
+        ${GIT_REPOSITORY_DIR}/examples/grpc/senzing-load-truthsets.R
+        ```
 
-            ```console
-            ${GIT_REPOSITORY_DIR}/examples/grpc/senzing-load-truthsets.R
-            ```
+    1. core
 
-        1. core
+        ```console
+        ${GIT_REPOSITORY_DIR}/examples/core/senzing-hello-world.R
+        ```
 
-            ```console
-            ${GIT_REPOSITORY_DIR}/examples/core/senzing-hello-world.R
-            ```
-
-            ```console
-            ${GIT_REPOSITORY_DIR}/examples/core/senzing-load-truthsets.R
-            ```
+        ```console
+        ${GIT_REPOSITORY_DIR}/examples/core/senzing-load-truthsets.R
+        ```
 
 1. Clean up.
    Example:
@@ -119,10 +117,18 @@ Since the Senzing library is a prerequisite, it must be installed first.
 1. Run tests.
    Example:
 
+    1. gRPC
+
     ```console
     cd ${GIT_REPOSITORY_DIR}
-    make clean setup test
+    make clean setup test-grpc
+    ```
 
+    1. core
+
+    ```console
+    cd ${GIT_REPOSITORY_DIR}
+    make clean setup test-core
     ```
 
 ## Debugging
