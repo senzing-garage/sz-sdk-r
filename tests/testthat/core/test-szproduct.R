@@ -1,0 +1,48 @@
+#!/usr/bin/env Rscript
+
+library(testthat)
+library(jsonlite)
+library(reticulate)
+
+# Prepare Python environment.
+
+use_virtualenv("~/.venv")
+senzing <- import("senzing_core")
+
+# Create an abstract factory.
+
+instance_name <- "Example"
+settings <- '{"PIPELINE":{"CONFIGPATH":"/etc/opt/senzing","RESOURCEPATH":"/opt/senzing/er/resources","SUPPORTPATH":"/opt/senzing/data"},"SQL":{"CONNECTION":"sqlite3://na:na@/tmp/sqlite/G2C.db"}}'
+sz_abstract_factory <- senzing$SzAbstractFactoryCore(instance_name, settings)
+
+# Create Senzing objects.
+
+sz_product <- sz_abstract_factory$create_product()
+
+print_result <- function(name, ...) {
+    string_length <- nchar(name)
+    suffix <- strrep("-", 80 - string_length)
+    print(paste("---", name, suffix))
+    tryCatch({
+        print(...)
+    }, warning = function(w) {}, error = function(e) {}, finally = {})
+}
+
+# -----------------------------------------------------------------------------
+# Tests
+# -----------------------------------------------------------------------------
+
+test_that("sz_product.get_version", {
+    result <- sz_product$get_version()
+    print_result("sz_product.get_version", prettify(result, indent = 2))
+
+    # expect_equal(my_sum(1, 1), 2)
+    # expect_equal(my_sum(0, 5), 5)
+    # expect_equal(my_sum(-2, 3), 1)
+    # expect_equal(my_sum(100, -50), 50)
+})
+
+test_that("sz_product.get_license", {
+    result <- sz_product$get_license()
+    print_result("sz_product.get_license", prettify(result, indent = 2))
+})
