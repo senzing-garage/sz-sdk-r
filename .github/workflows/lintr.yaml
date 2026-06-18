@@ -16,7 +16,7 @@ jobs:
     permissions:
       contents: read
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
 
     steps:
       - name: Checkout repository
@@ -24,19 +24,13 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Set up R
-        uses: r-lib/actions/setup-r@v2
-        with:
-          use-public-rspm: true
-
-      # pak + P3M binaries + caching. `dependencies: hard` installs only
-      # Depends/Imports/LinkingTo (no Suggests), so it avoids the large
-      # Suggests-closure system packages that previously bloated this step.
-      - name: Install lintr
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          packages: any::lintr
-          dependencies: '"hard"'
+      # Ubuntu ships R and lintr as prebuilt apt binaries, so there is no
+      # setup-r system-requirements step (no devscripts/ghostscript/qpdf) and
+      # no source compiles -- this installs in seconds.
+      - name: Install R and lintr
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends r-base-core r-cran-lintr
 
       # lintr honors the repository .lintr configuration. Any lint fails CI.
       - name: Run lintr
