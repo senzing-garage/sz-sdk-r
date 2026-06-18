@@ -1,2 +1,0 @@
-senzing-grpc
-senzing-core

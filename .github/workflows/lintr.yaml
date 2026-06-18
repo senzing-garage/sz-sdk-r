@@ -1,0 +1,42 @@
+name: Lintr
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  lintr:
+    name: Lintr
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Install lintr
+        run: Rscript -e 'install.packages("lintr")'
+
+      # lintr honors the repository .lintr configuration. Any lint fails CI.
+      - name: Run lintr
+        run: |
+          Rscript -e '
+            lints <- lintr::lint_dir(".")
+            print(lints)
+            if (length(lints) > 0L) stop(sprintf("lintr found %d issue(s)", length(lints)))
+          '

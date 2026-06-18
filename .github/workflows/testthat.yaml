@@ -1,0 +1,82 @@
+name: Testthat
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  sdk-versions:
+    runs-on: ubuntu-latest
+    outputs:
+      senzingsdk-versions: ${{ steps.cfg.outputs.senzingsdk-versions }}
+    steps:
+      - id: cfg
+        uses: senzing-factory/build-resources/sdk-versions@v4
+
+  testthat-core:
+    name: "Testthat core: Senzing ${{ matrix.senzingsdk-version }}"
+    needs: sdk-versions
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        senzingsdk-version: ${{ fromJSON(needs.sdk-versions.outputs.senzingsdk-versions) }}
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Install Senzing SDK
+        uses: senzing-factory/github-action-install-senzing-sdk@v5
+        with:
+          senzingsdk-version: ${{ matrix.senzingsdk-version }}
+
+      - name: Set environment variables
+        run: |
+          SENZING_PATH="/opt/senzing"
+          {
+            echo "SENZING_PATH=${SENZING_PATH}"
+            echo "LD_LIBRARY_PATH=${SENZING_PATH}/er/lib"
+          } >> "$GITHUB_ENV"
+
+      - name: Copy /etc files
+        run: |
+          sudo mkdir -p /etc/opt/senzing
+          sudo cp testdata/senzing-license/g2.lic /etc/opt/senzing/g2.lic
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      # The tests call reticulate's use_virtualenv("~/.venv"), so the Python
+      # senzing deps (from pyproject.toml) must live in that exact venv.
+      - name: Install Python dependencies into ~/.venv
+        run: |
+          python3 -m venv ~/.venv
+          ~/.venv/bin/python -m pip install --upgrade pip
+          ~/.venv/bin/python -m pip install .
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Install R packages
+        run: Rscript -e 'install.packages(c("testthat", "jsonlite", "reticulate", "bit64", "dplyr", "httr"))'
+
+      - name: Run core tests
+        run: Rscript tests/test-core.R
