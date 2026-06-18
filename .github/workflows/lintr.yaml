@@ -16,7 +16,7 @@ jobs:
     permissions:
       contents: read
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     steps:
       - name: Checkout repository
@@ -30,9 +30,8 @@ jobs:
           use-public-rspm: true
 
       # pak + P3M binaries + caching. `dependencies: hard` installs only
-      # Depends/Imports/LinkingTo — no Suggests — so it doesn't drag in the
-      # huge Suggests-closure system requirements (lintian, perl, etc.) that
-      # made this run for 10+ minutes.
+      # Depends/Imports/LinkingTo (no Suggests), so it avoids the large
+      # Suggests-closure system packages that previously bloated this step.
       - name: Install lintr
         uses: r-lib/actions/setup-r-dependencies@v2
         with:

@@ -60,9 +60,9 @@
     ".history/**",
     ".venv/**",
     "**/__pycache__/**",
-    "customers.json",
+    "customers.jsonl",
     "examples/*.json",
-    "reference.json",
-    "watchlist.json"
+    "reference.jsonl",
+    "watchlist.jsonl"
   ]
 }
