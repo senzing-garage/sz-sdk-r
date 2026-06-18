@@ -29,8 +29,13 @@ jobs:
         with:
           use-public-rspm: true
 
+      # setup-r-dependencies uses pak + the P3M binary repo + caching, so
+      # lintr installs in ~1-2 min instead of compiling from source (which
+      # blew past the timeout).
       - name: Install lintr
-        run: Rscript -e 'install.packages("lintr")'
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: any::lintr
 
       # lintr honors the repository .lintr configuration. Any lint fails CI.
       - name: Run lintr

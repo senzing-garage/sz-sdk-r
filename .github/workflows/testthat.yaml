@@ -57,6 +57,13 @@ jobs:
           sudo mkdir -p /etc/opt/senzing
           sudo cp testdata/senzing-license/g2.lic /etc/opt/senzing/g2.lic
 
+      # The core tests' settings point at sqlite3://na:na@/tmp/sqlite/G2C.db,
+      # so the seed database must exist at that exact path.
+      - name: Copy test database
+        run: |
+          mkdir -p /tmp/sqlite
+          cp testdata/sqlite/G2C.db /tmp/sqlite/
+
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
@@ -75,8 +82,18 @@ jobs:
         with:
           use-public-rspm: true
 
+      # Binary + cached install (pak + P3M) — source compiles of reticulate/
+      # dplyr/httr previously ran past the 30m timeout.
       - name: Install R packages
-        run: Rscript -e 'install.packages(c("testthat", "jsonlite", "reticulate", "bit64", "dplyr", "httr"))'
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::testthat
+            any::jsonlite
+            any::reticulate
+            any::bit64
+            any::dplyr
+            any::httr
 
       - name: Run core tests
         run: Rscript tests/test-core.R

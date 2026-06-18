@@ -29,8 +29,11 @@ jobs:
         with:
           use-public-rspm: true
 
+      # Binary + cached install (pak + P3M) — avoids the slow source compile.
       - name: Install styler
-        run: Rscript -e 'install.packages("styler")'
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: any::styler
 
       # styler reformats in place; we then fail if anything changed, so the
       # job is a non-mutating "is the tree already styled?" check.
