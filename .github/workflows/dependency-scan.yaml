@@ -32,14 +32,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install dependencies
-        run: |
-          python -m venv ./venv
-          source ./venv/bin/activate
-          echo "PATH=${PATH}" >> "${GITHUB_ENV}"
-          python -m pip install .
-
+      # pip-audit resolves the project's dependencies from pyproject.toml
+      # itself when given the project directory, so no pre-install is needed.
       - name: Run pip-audit
         uses: pypa/gh-action-pip-audit@v1.1.0
         with:
-          inputs: ${{ github.workspace}}
+          inputs: ${{ github.workspace }}

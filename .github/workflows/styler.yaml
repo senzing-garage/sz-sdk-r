@@ -16,7 +16,7 @@ jobs:
     permissions:
       contents: read
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
 
     steps:
       - name: Checkout repository
@@ -29,11 +29,13 @@ jobs:
         with:
           use-public-rspm: true
 
-      # Binary + cached install (pak + P3M) — avoids the slow source compile.
+      # pak + P3M binaries + caching. `dependencies: hard` skips Suggests so
+      # we don't install the irrelevant Suggests-closure system requirements.
       - name: Install styler
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           packages: any::styler
+          dependencies: '"hard"'
 
       # styler reformats in place; we then fail if anything changed, so the
       # job is a non-mutating "is the tree already styled?" check.

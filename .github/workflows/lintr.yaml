@@ -16,7 +16,7 @@ jobs:
     permissions:
       contents: read
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
 
     steps:
       - name: Checkout repository
@@ -29,13 +29,15 @@ jobs:
         with:
           use-public-rspm: true
 
-      # setup-r-dependencies uses pak + the P3M binary repo + caching, so
-      # lintr installs in ~1-2 min instead of compiling from source (which
-      # blew past the timeout).
+      # pak + P3M binaries + caching. `dependencies: hard` installs only
+      # Depends/Imports/LinkingTo — no Suggests — so it doesn't drag in the
+      # huge Suggests-closure system requirements (lintian, perl, etc.) that
+      # made this run for 10+ minutes.
       - name: Install lintr
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           packages: any::lintr
+          dependencies: '"hard"'
 
       # lintr honors the repository .lintr configuration. Any lint fails CI.
       - name: Run lintr

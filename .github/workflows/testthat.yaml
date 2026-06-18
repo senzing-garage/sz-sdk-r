@@ -31,7 +31,7 @@ jobs:
       fail-fast: false
       matrix:
         senzingsdk-version: ${{ fromJSON(needs.sdk-versions.outputs.senzingsdk-versions) }}
-    timeout-minutes: 30
+    timeout-minutes: 20
 
     steps:
       - name: Checkout repository
@@ -82,8 +82,8 @@ jobs:
         with:
           use-public-rspm: true
 
-      # Binary + cached install (pak + P3M) — source compiles of reticulate/
-      # dplyr/httr previously ran past the 30m timeout.
+      # pak + P3M binaries + caching. `dependencies: hard` skips Suggests so
+      # the install stays to what the suites actually need to load and run.
       - name: Install R packages
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
@@ -94,6 +94,7 @@ jobs:
             any::bit64
             any::dplyr
             any::httr
+          dependencies: '"hard"'
 
       - name: Run core tests
         run: Rscript tests/test-core.R
