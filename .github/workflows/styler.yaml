@@ -1,0 +1,50 @@
+name: Styler
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  styler:
+    name: Styler
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6.0.2
+        with:
+          persist-credentials: false
+
+      # styler is the one tool Ubuntu doesn't package, so it builds from CRAN.
+      # We apt-install its compiled dependencies as Ubuntu binaries first, so
+      # `install.packages("styler")` only has to build the remaining pure-R
+      # packages (fast, no C compilation, no setup-r system-requirements step).
+      - name: Install R and styler's dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            r-base-core \
+            r-cran-cli r-cran-vctrs r-cran-tibble r-cran-rlang r-cran-glue \
+            r-cran-purrr r-cran-magrittr r-cran-rprojroot r-cran-withr
+
+      - name: Install styler
+        run: Rscript -e 'install.packages("styler", repos = "https://cloud.r-project.org")'
+
+      # styler reformats in place; we then fail if anything changed, so the
+      # job is a non-mutating "is the tree already styled?" check.
+      - name: Check formatting with styler
+        run: |
+          Rscript -e 'styler::style_dir(".")'
+          git diff --exit-code || {
+            echo "::error::styler would reformat the above files. Run styler::style_dir() locally and commit."
+            exit 1
+          }

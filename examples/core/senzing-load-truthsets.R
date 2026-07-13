@@ -17,7 +17,7 @@ senzing_flags <- import("senzing", convert = FALSE)
 
 home_path <- "./"
 truth_set_url_prefix <- "https://raw.githubusercontent.com/Senzing/truth-sets/refs/heads/main/truthsets/demo/"
-truth_set_filenames <- list("customers.json", "reference.json", "watchlist.json")
+truth_set_filenames <- list("customers.jsonl", "reference.jsonl", "watchlist.jsonl")
 
 # Download truth-set files.
 

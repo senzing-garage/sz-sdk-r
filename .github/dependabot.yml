@@ -15,3 +15,16 @@ updates:
           - "senzing-factory/*"
     schedule:
       interval: "daily"
+
+  # Python runtime dependencies declared in pyproject.toml (imported via
+  # reticulate in the testthat suites). NOTE: the R/CRAN packages installed
+  # in the Makefile (reticulate, testthat, bit64, dplyr, httr) are NOT covered
+  # — Dependabot has no CRAN support, so those remain manual.
+  - package-ecosystem: "pip"
+    assignees:
+      - "kernelsam"
+    cooldown:
+      default-days: 21
+    directory: "/"
+    schedule:
+      interval: "daily"

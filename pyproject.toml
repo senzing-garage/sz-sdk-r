@@ -1,0 +1,23 @@
+# This repository is an R SDK, not a Python project. This bare-bones
+# pyproject.toml exists only so the Python runtime dependencies the
+# reticulate-based tests import (senzing-core, senzing-grpc) live in a single
+# manifest that `pip install .`, Dependabot (pip), and pip-audit can all read,
+# keeping tooling consistent with the Senzing Python repositories.
+[project]
+name = "sz-sdk-r"
+version = "0.0.0"
+description = "Python runtime dependencies for the Senzing R SDK (imported via reticulate)."
+requires-python = ">=3.10"
+dependencies = [
+  "senzing-core",
+  "senzing-grpc",
+]
+
+[build-system]
+requires = ["setuptools>=82.0.1", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+# No Python packages/modules ship from this repo — declaring an empty set lets
+# `pip install .` build a deps-only distribution without package discovery.
+py-modules = []

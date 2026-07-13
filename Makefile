@@ -65,9 +65,6 @@ venv: venv-osarch-specific
 
 .PHONY: dependencies-for-development
 dependencies-for-development: dependencies-for-development-osarch-specific
-	$(activate-venv); \
-		python3 -m pip install --upgrade pip; \
-		python3 -m pip install --requirement development-requirements.txt
 
 
 .PHONY: dependencies
@@ -78,7 +75,7 @@ dependencies:  venv
 	@sudo Rscript -e 'install.packages("reticulate", repos="https://cloud.r-project.org")'
 	$(activate-venv); \
 		python3 -m pip install --upgrade pip; \
-		python3 -m pip install --requirement requirements.txt
+		python3 -m pip install .
 
 # -----------------------------------------------------------------------------
 # Setup

@@ -54,6 +54,44 @@ this action moves the PR on the "Garage" project board to "Done".
 - [Move PR to Done Dependabot GitHub Action]
   - Uses: [senzing-factory/build-resources/.../move-pr-to-done-dependabot.yaml]
 
+## claude-pr-review.yaml
+
+When a Pull Request is opened or updated,
+this action runs an automated Claude code review.
+
+## dependency-scan.yaml
+
+When a Pull Request is made against the `main` branch,
+this action runs [pip-audit] against the Python dependencies declared in
+`pyproject.toml` (the `senzing-core` / `senzing-grpc` packages imported via reticulate).
+
+## link-issues-to-pr-post-merge.yaml
+
+When a Pull Request is merged,
+this action links the referenced issues to the Pull Request.
+
+## lintr.yaml
+
+When a Pull Request is made against the `main` branch,
+this action runs [lintr] against the R sources (honoring the repository `.lintr`).
+
+## spellcheck.yaml
+
+When a change is committed to GitHub or a Pull Request is made against the `main` branch,
+this action runs [cspell] to spell-check the repository.
+
+## styler.yaml
+
+When a Pull Request is made against the `main` branch,
+this action runs [styler] and fails if any R file is not already formatted.
+
+## testthat.yaml
+
+When a change is committed to GitHub or a Pull Request is made against the `main` branch,
+this action installs the Senzing SDK and runs the testthat core suite
+(`tests/test-core.R`). The gRPC suite (`tests/test-grpc.R`) requires a running
+Senzing gRPC server on `localhost:8261` and is not yet wired into CI.
+
 [.checkov.yaml]: ../linters/README.md#checkovyaml
 [.jscpd.json]: ../linters/README.md#jscpdjson
 [.yaml-lint.yml]: ../linters/README.md#yaml-lintyml
@@ -71,3 +109,7 @@ this action moves the PR on the "Garage" project board to "Done".
 [senzing-factory/build-resources/.../lint-workflows.yaml]: https://github.com/senzing-factory/build-resources/blob/main/.github/workflows/lint-workflows.yaml
 [senzing-factory/build-resources/.../move-pr-to-done-dependabot.yaml]: https://github.com/senzing-factory/build-resources/blob/main/.github/workflows/move-pr-to-done-dependabot.yaml
 [super-linter]: https://github.com/super-linter/super-linter
+[pip-audit]: https://github.com/pypa/pip-audit
+[lintr]: https://lintr.r-lib.org/
+[styler]: https://styler.r-lib.org/
+[cspell]: https://cspell.org/

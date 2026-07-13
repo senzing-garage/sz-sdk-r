@@ -50,6 +50,6 @@ rsconnect/
 .vscode
 .venv
 
-customers.json
-reference.json
-watchlist.json
+customers.jsonl
+reference.jsonl
+watchlist.jsonl

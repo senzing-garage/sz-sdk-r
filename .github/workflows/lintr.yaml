@@ -1,0 +1,42 @@
+name: Lintr
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  lintr:
+    name: Lintr
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6.0.2
+        with:
+          persist-credentials: false
+
+      # Ubuntu ships R and lintr as prebuilt apt binaries, so there is no
+      # setup-r system-requirements step (no devscripts/ghostscript/qpdf) and
+      # no source compiles -- this installs in seconds.
+      - name: Install R and lintr
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends r-base-core r-cran-lintr
+
+      # lintr honors the repository .lintr configuration. Any lint fails CI.
+      - name: Run lintr
+        run: |
+          Rscript -e '
+            lints <- lintr::lint_dir(".")
+            print(lints)
+            if (length(lints) > 0L) stop(sprintf("lintr found %d issue(s)", length(lints)))
+          '
